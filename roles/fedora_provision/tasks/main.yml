@@ -1,0 +1,9 @@
+---
+- name: Install Oh My ZSH
+  ansible.builtin.import_tasks: oh-my-zsh.yml
+
+- name: Copy dotfiles
+  ansible.builtin.import_tasks: dotfiles.yml
+
+- name: Install tilix
+  ansible.builtin.import_tasks: tilix.yml

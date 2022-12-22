@@ -1,6 +1,5 @@
 ---
 - hosts: localhost
   connection: local
-  tasks:
-    - ansible.builtin.debug:
-        msg: "Hello World!"
+  roles:
+    - role: fedora_provision
