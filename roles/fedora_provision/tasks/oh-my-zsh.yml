@@ -1,6 +1,5 @@
 ---
 - name: Installing Oh My ZSH
-  ansible.builtin.git:
-    repo: 'https://github.com/robbyrussell/oh-my-zsh.git'
-    dest: '{{ansible_env.HOME}}/.oh-my-zsh'
-    version: master
+  ansible.builtin.shell: 'sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"'
+  register: res
+  changed_when: res.rc != 0
