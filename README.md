@@ -27,8 +27,3 @@ Run the __playbook__ to configure everything!
 ```shell
 ansible-playbook main.yml
 ```
-
--- Install zsh
--- Install oh-my-zsh
--- Install tilix
--- Install aura themes

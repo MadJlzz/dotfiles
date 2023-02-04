@@ -1,8 +1,4 @@
 ---
-- name: Copy dotfiles
-  ansible.builtin.import_tasks: dotfiles.yml
-  tags: [dotfiles]
-
 - name: Install Hacker prefered fonts
   ansible.builtin.import_tasks: fonts.yml
   tags: [fonts]
@@ -14,3 +10,11 @@
 - name: Install HyperJS
   ansible.builtin.import_tasks: hyperjs.yml
   tags: [hyperjs, terminal]
+
+- name: Install VSCode
+  ansible.builtin.import_tasks: vscode.yml
+  tags: [vscode, editors]
+
+- name: Copy dotfiles
+  ansible.builtin.import_tasks: dotfiles.yml
+  tags: [dotfiles]

@@ -1,5 +1,0 @@
----
-- name: Installing Oh My ZSH
-  ansible.builtin.shell: 'sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"'
-  register: res
-  changed_when: res.rc != 0
