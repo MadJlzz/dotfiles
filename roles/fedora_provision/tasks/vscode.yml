@@ -1,1 +1,20 @@
 ---
+- name: Add Microsoft repository key
+  ansible.builtin.rpm_key:
+    key: https://packages.microsoft.com/keys/microsoft.asc
+
+- name: Add Microsoft repository to sources
+  ansible.builtin.copy:
+    src: "{{ role_path }}/files/vscode/vscode.repo"
+    dest: /etc/yum.repos.d/vscode.repo
+
+- name: Install VSCode package
+  ansible.builtin.dnf:
+    state: present
+    name: code
+    update_cache: true
+
+- name: Copy VSCode settings.json file
+  ansible.builtin.copy:
+    src: "{{ role_path }}/files/vscode/settings.json"
+    dest: ~/.config/Code/User/settings.json
