@@ -5,3 +5,4 @@
     dest: "{{ item.dest }}"
   loop:
     - {"src": "{{ role_path }}/files/dotfiles/.bash_profile", "dest": "~/.bash_profile"}
+    - {"src": "{{ role_path }}/files/dotfiles/.bashrc", "dest": "~/.bashrc"}

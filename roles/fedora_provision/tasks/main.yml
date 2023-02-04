@@ -1,4 +1,8 @@
 ---
+- name: Deploy common configuration (directories, packages, ...)
+  ansible.builtin.import_tasks: common.yml
+  tags: [common]
+
 - name: Install Hacker prefered fonts
   ansible.builtin.import_tasks: fonts.yml
   tags: [fonts]
@@ -14,6 +18,10 @@
 - name: Install VSCode
   ansible.builtin.import_tasks: vscode.yml
   tags: [vscode, editors]
+
+- name: Install asdf
+  ansible.builtin.import_tasks: asdf.yml
+  tags: [asdf, cli]
 
 - name: Copy dotfiles
   ansible.builtin.import_tasks: dotfiles.yml

@@ -1,0 +1,14 @@
+---
+- name: Prepare common directories used by dotfiles
+  ansible.builtin.file:
+    state: directory
+    path: ~/.bashrc.d/
+
+- name: Install common packages
+  become: true
+  ansible.builtin.dnf:
+    state: present
+    name: "{{ item }}"
+  loop:
+    - git
+    - curl

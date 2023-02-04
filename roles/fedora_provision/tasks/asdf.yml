@@ -1,0 +1,12 @@
+---
+- name: Install CLI manager asdf
+  ansible.builtin.git:
+    repo: https://github.com/asdf-vm/asdf.git
+    dest: ~/.asdf
+    single_branch: true
+    version: v0.11.1
+
+- name: Copy asdf bash configuration
+  ansible.builtin.copy:
+    src: "{{ role_path }}/files/asdf/asdf.sh"
+    dest: ~/.bashrc.d/asdf.sh

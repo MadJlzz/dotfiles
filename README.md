@@ -25,5 +25,12 @@ pip install -r requirements.txt
 
 Run the __playbook__ to configure everything!
 ```shell
-ansible-playbook main.yml
+ansible-playbook main.yml [-t <pkgs, fonts, ...>]
 ```
+
+You may need to give Ansible your root password for packages installation.
+```shell
+ansible-playbook -K main.yml [-t <pkgs, fonts, ...>]
+```
+
+A prompt will ask you for your **BECOME** password.

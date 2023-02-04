@@ -9,6 +9,7 @@
     dest: /etc/yum.repos.d/vscode.repo
 
 - name: Install VSCode package
+  become: true
   ansible.builtin.dnf:
     state: present
     name: code
