@@ -10,3 +10,7 @@
 - name: Install starship
   ansible.builtin.import_tasks: starship.yml
   tags: [starship, terminal]
+
+- name: Install HyperJS
+  ansible.builtin.import_tasks: hyperjs.yml
+  tags: [hyperjs, terminal]
