@@ -19,6 +19,10 @@
   ansible.builtin.import_tasks: vscode.yml
   tags: [vscode, editors]
 
+- name: Install Neovim
+  ansible.builtin.import_tasks: nvim.yml
+  tags: [nvim, editors]
+
 - name: Install asdf
   ansible.builtin.import_tasks: asdf.yml
   tags: [asdf, cli]

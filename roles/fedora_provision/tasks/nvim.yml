@@ -1,0 +1,65 @@
+---
+- name: Prepare neovim configuration folder
+  ansible.builtin.file:
+    path: ~/.config/nvim
+    state: directory
+  tags: [nvim-prepare]
+
+- name: Clone nvim source folder
+  ansible.builtin.git:
+    repo: https://github.com/neovim/neovim.git
+    dest: ~/Projects/neovim
+    single_branch: true
+    version: master
+  tags: [nvim-prepare]
+
+- name: Install nvim build dependencies
+  become: true
+  ansible.builtin.dnf:
+    state: present
+    name: "{{ item }}"
+  loop:
+    - ninja-build
+    - libtool
+    - autoconf
+    - automake
+    - cmake
+    - gcc
+    - gcc-c++
+    - make
+    - pkgconfig
+    - unzip
+    - patch
+    - gettext
+    - curl
+  tags: [nvim-prepare]
+
+- name: Build nvim from sources
+  community.general.make:
+    chdir: ~/Projects/neovim
+    params:
+      CMAKE_BUILD_TYPE: RelWithDebInfo
+  tags: [nvim-build]
+
+# I could not used a relative path like ~/Projects/neovim
+# since we have to become: true => to run the make install...
+- name: Install nvim from sources
+  become: true
+  community.general.make:
+    chdir: /home/madjlzz/Projects/neovim
+    target: install
+  tags: [nvim-install]
+
+- name: Clone nvim source folder
+  ansible.builtin.git:
+    repo: https://github.com/nvim-lua/kickstart.nvim.git
+    dest: ~/Projects/kickstart.nvim
+    single_branch: true
+    version: master
+  tags: [nvim-configure]
+
+- name: Copy kickstart nvim file to nvim configuration directory
+  ansible.builtin.copy:
+    src: ~/Projects/kickstart.nvim/
+    dest: ~/.config/nvim
+  tags: [nvim-configure]
