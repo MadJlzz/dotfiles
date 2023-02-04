@@ -1,0 +1,15 @@
+---
+- name: Prepare fonts folder
+  ansible.builtin.file:
+    path: ~/.local/share/fonts/nerdfonts
+    state: directory
+
+- name: Install Hack fonts
+  ansible.builtin.copy:
+    src: "{{ role_path }}/files/fonts/{{ item }}"
+    dest: ~/.local/share/fonts/nerdfonts
+  loop:
+    - "Hack Bold Italic Nerd Font Complete.ttf"
+    - "Hack Bold Nerd Font Complete.ttf"
+    - "Hack Italic Nerd Font Complete.ttf"
+    - "Hack Regular Nerd Font Complete.ttf"

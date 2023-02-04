@@ -1,9 +1,12 @@
 ---
-- name: Install Oh My ZSH
-  ansible.builtin.import_tasks: oh-my-zsh.yml
-
 - name: Copy dotfiles
   ansible.builtin.import_tasks: dotfiles.yml
+  tags: [dotfiles]
 
-- name: Install tilix
-  ansible.builtin.import_tasks: tilix.yml
+- name: Install Hacker prefered fonts
+  ansible.builtin.import_tasks: fonts.yml
+  tags: [fonts]
+
+- name: Install starship
+  ansible.builtin.import_tasks: starship.yml
+  tags: [starship, terminal]

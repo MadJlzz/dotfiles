@@ -1,1 +1,7 @@
 ---
+- name: Copy dotfiles on the system
+  ansible.builtin.copy:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+  loop:
+    - {"src": "{{ role_path }}/files/dotfiles/.bash_profile", "dest": "~/.bash_profile"}
