@@ -15,12 +15,13 @@
     - "Hack Regular Nerd Font Complete.ttf"
     - "Hack Regular Nerd Font Complete Mono.ttf"
 
-# TODO: check what is wrong with this?
-# - name: Configure GNOME to use the newly installed fonts
-#   ansible.builtin.command:
-#     cmd: "gsettings set {{ item.key }} '{{ item.value }}'"
-#   loop:
-#     - { key: "/org/gnome/desktop/interface/font-name", value: "Hack Nerd Font 11" }
-#     - { key: "/org/gnome/desktop/interface/document-font-name", value: "Hack Nerd Font 11" }
-#     - { key: "/org/gnome/desktop/interface/monospace-font-name", value: "Hack Nerd Font Mono 10" }
-#     - { key: "/org/gnome/desktop/wm/preferences/titlebar-font", value: "Hack Nerd Font Bold 11" }
+- name: Configure GNOME to use the newly installed fonts
+  ansible.builtin.command:
+    cmd: "gsettings set {{ item.pkg }} {{ item.key }} '{{ item.value }}'"
+  loop:
+    - { pkg: "org.gnome.desktop.interface", key: "font-name", value: "Hack Nerd Font 11" }
+    - { pkg: "org.gnome.desktop.interface", key: "document-font-name", value: "Hack Nerd Font 11" }
+    - { pkg: "org.gnome.desktop.interface", key: "monospace-font-name", value: "Hack Nerd Font Mono 10" }
+    - { pkg: "org.gnome.desktop.wm.preferences", key: "titlebar-font", value: "Hack Nerd Font Bold 11" }
+  register: _output
+  changed_when: _output.rc != 0
