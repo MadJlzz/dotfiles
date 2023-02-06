@@ -1,6 +1,14 @@
 ---
-- name: Install HyperJS package
+- name: Install HyperJS package (Ubuntu)
+  become: true
+  ansible.builtin.apt:
+    state: present
+    deb: https://github.com/vercel/hyper/releases/download/v3.4.1/hyper_3.4.1_amd64.deb
+  when: ansible_distribution == 'Ubuntu'
+
+- name: Install HyperJS package (Debian)
   become: true
   ansible.builtin.dnf:
     state: present
     name: https://github.com/vercel/hyper/releases/download/v3.4.1/hyper-3.4.1.x86_64.rpm
+  when: ansible_distribution == 'Fedora'
