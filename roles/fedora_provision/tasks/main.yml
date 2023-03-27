@@ -3,6 +3,10 @@
   ansible.builtin.import_tasks: common.yml
   tags: [common]
 
+- name: Deploy ZSA configuration to recognize Moonlander keyboard
+  ansible.builtin.import_tasks: zsa.yml
+  tags: [common]
+
 - name: Install Hacker prefered fonts
   ansible.builtin.import_tasks: fonts.yml
   tags: [fonts]

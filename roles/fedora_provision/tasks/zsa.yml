@@ -1,0 +1,28 @@
+- name: Install required ZSA packages
+  become: true
+  ansible.builtin.dnf:
+    state: present
+    name: "{{ item }}"
+  loop:
+    - gtk3
+    - webkit2gtk3
+    - libusb
+
+- name: Create udev rules required by ZSA/Wally
+  become: true
+  ansible.builtin.copy:
+    src: "{{ role_path }}/files/zsa/50-zsa.rules"
+    dest: /etc/udev/rules.d/50-zsa.rules
+
+- name: Ensure group "plugdev" exists
+  become: true
+  ansible.builtin.group:
+    name: plugdev
+    state: present
+
+- name: Add the user 'madjlzz' to the group 'plugdev'
+  become: true
+  ansible.builtin.user:
+    name: madjlzz
+    groups: plugdev
+    append: true
