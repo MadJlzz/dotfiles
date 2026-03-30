@@ -26,7 +26,7 @@ All machines get the same setup: shell config, fonts, editors, dev tools, and ke
 One-liner to install chezmoi and apply this repo:
 
 ```shell
-sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply MadJlzz
+sh -c "$(curl -fsLS get.chezmoi.io)" -- -b $HOME/.local/bin init --apply MadJlzz
 ```
 
 Or if chezmoi is already installed:
