@@ -1,0 +1,16 @@
+[Desktop Entry]
+Type=Application
+TryExec={{ .chezmoi.homeDir }}/.local/share/mise/shims/alacritty
+Exec={{ .chezmoi.homeDir }}/.local/share/mise/shims/alacritty
+Icon=Alacritty
+Terminal=false
+Categories=System;TerminalEmulator;
+Name=Alacritty
+GenericName=Terminal
+Comment=A fast, cross-platform, OpenGL terminal emulator
+StartupWMClass=Alacritty
+Actions=New;
+
+[Desktop Action New]
+Name=New Terminal Window
+Exec={{ .chezmoi.homeDir }}/.local/share/mise/shims/alacritty

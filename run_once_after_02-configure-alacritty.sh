@@ -13,7 +13,5 @@ echo "==> Installing Alacritty icon..."
 curl -sSL "${ALACRITTY_REPO}/extra/logo/alacritty-term.svg" -o "$TMPDIR/Alacritty.svg"
 sudo cp "$TMPDIR/Alacritty.svg" /usr/share/pixmaps/Alacritty.svg
 
-echo "==> Installing Alacritty desktop entry..."
-curl -sSL "${ALACRITTY_REPO}/extra/linux/Alacritty.desktop" -o "$TMPDIR/Alacritty.desktop"
-sudo desktop-file-install "$TMPDIR/Alacritty.desktop"
-sudo update-desktop-database
+echo "==> Updating desktop database..."
+update-desktop-database ~/.local/share/applications
