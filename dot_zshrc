@@ -25,9 +25,6 @@ source <(switch completion zsh)
 # Enable starship prompt
 eval "$(starship init zsh)"
 
-# Kubernetes aliases
-# DOES NOT WORK
-# source <(kubectl completion zsh)
 alias kubectl=kubecolor
 [ -f ~/.kubectl_aliases ] && source ~/.kubectl_aliases
 
@@ -58,6 +55,10 @@ setopt share_history          # share command history data
 # enable Ctrl+arrow keys to move between words
 bindkey "^[[1;5C" forward-word
 bindkey "^[[1;5D" backward-word
+
+# Home/End to go to beginning/end of line
+bindkey "^[[H" beginning-of-line
+bindkey "^[[F" end-of-line
 
 # add edit-command-line binding to open cmdline in prefered editor
 autoload -z edit-command-line
