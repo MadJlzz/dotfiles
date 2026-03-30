@@ -1,36 +1,63 @@
-# .dotfile
+# dotfiles
 
-This repository helps me configure my Linux environment such that all my laptops  are configured the same way. Actually, it's more for being as ease at work than I am at home :stuck_out_tongue_winking_eye:
+Manages my Linux development environment using [chezmoi](https://www.chezmoi.io/).
+All machines get the same setup: shell config, fonts, editors, dev tools, and keyboard support.
 
-# Prerequisites
+## What's included
 
-I tried to automate as much as possible the deployment of the configuration.
-It relies on:
-* Python >= 3.10
-* Ansible >= 7.1
+| Category | What it does |
+|----------|-------------|
+| **Packages** | git, curl, zsh, fzf, gnome-tweaks, pass, flatpak |
+| **mise** | Tool version manager (Go, Rust, Node, Terraform, kubectl, etc.) |
+| **Starship** | Cross-shell prompt (installed via mise) |
+| **Helix** | Terminal editor (installed via mise) |
+| **VSCode** | Repo setup, install, and settings |
+| **Obsidian** | Note-taking app (installed via Flatpak) |
+| **Fonts** | Hack + Fira Code Nerd Fonts |
+| **Dotfiles** | .zshrc, .gitconfig, starship/helix/mise configs |
 
-# Get started
+## Prerequisites
 
-Start by cloning the repository:
+- [chezmoi](https://www.chezmoi.io/install/) installed
+- Fedora or Ubuntu/Debian
+
+## Get started
+
+One-liner to install chezmoi and apply this repo:
+
 ```shell
-git clone git@github.com:MadJlzz/dotfiles.git
+sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply MadJlzz
 ```
 
-Create a new `venv` and install dependencies:
+Or if chezmoi is already installed:
+
 ```shell
-python -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
+chezmoi init --apply MadJlzz
 ```
 
-Run the __playbook__ to configure everything!
+This will:
+1. Run all install scripts (packages, mise, VSCode)
+2. Deploy all dotfiles and config to their proper locations
+
+Scripts requiring root will prompt for your sudo password.
+
+## Day-to-day usage
+
 ```shell
-ansible-playbook main.yml [-t <pkgs, fonts, ...>]
+# See what would change
+chezmoi diff
+
+# Apply changes
+chezmoi apply
+
+# Edit a managed file (opens in $EDITOR, applies on save)
+chezmoi edit ~/.zshrc
+
+# Pull latest from repo and apply
+chezmoi update
 ```
 
-You may need to give Ansible your root password for packages installation.
-```shell
-ansible-playbook -K main.yml [-t <pkgs, fonts, ...>]
-```
+## Supported distributions
 
-A prompt will ask you for your **BECOME** password.
+- Fedora (primary)
+- Ubuntu / Debian

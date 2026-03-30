@@ -1,0 +1,33 @@
+#!/bin/bash
+set -euo pipefail
+
+echo "==> Installing VSCode..."
+
+{{ if eq .chezmoi.osRelease.id "fedora" -}}
+sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
+sudo tee /etc/yum.repos.d/vscode.repo > /dev/null << 'REPO'
+[code]
+name=Visual Studio Code
+baseurl=https://packages.microsoft.com/yumrepos/vscode
+enabled=1
+gpgcheck=1
+gpgkey=https://packages.microsoft.com/keys/microsoft.asc
+REPO
+sudo dnf install -y code
+{{ else if or (eq .chezmoi.osRelease.id "ubuntu") (eq .chezmoi.osRelease.id "debian") -}}
+sudo apt-get install -y wget gpg
+TMPKEY=$(mktemp)
+trap "rm -f $TMPKEY" EXIT
+wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > "$TMPKEY"
+sudo install -D -o root -g root -m 644 "$TMPKEY" /usr/share/keyrings/microsoft.gpg
+sudo tee /etc/apt/sources.list.d/vscode.sources > /dev/null << 'SOURCES'
+Types: deb
+URIs: https://packages.microsoft.com/repos/code
+Suites: stable
+Components: main
+Architectures: amd64,arm64,armhf
+Signed-By: /usr/share/keyrings/microsoft.gpg
+SOURCES
+sudo apt-get update
+sudo apt-get install -y code
+{{ end -}}

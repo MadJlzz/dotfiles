@@ -1,0 +1,25 @@
+#!/bin/bash
+set -euo pipefail
+
+echo "==> Installing common packages..."
+
+{{ if eq .chezmoi.osRelease.id "fedora" -}}
+sudo dnf install -y git curl zsh fzf gnome-tweaks pass flatpak
+{{ else if or (eq .chezmoi.osRelease.id "ubuntu") (eq .chezmoi.osRelease.id "debian") -}}
+sudo apt-get update
+sudo apt-get install -y git curl zsh fzf gnome-tweaks pass flatpak
+{{ end -}}
+
+echo "==> Configuring Flatpak..."
+flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+
+echo "==> Installing Flatpak apps..."
+flatpak install -y flathub md.obsidian.Obsidian
+
+echo "==> Setting zsh as default shell..."
+if [ "$(basename "$SHELL")" != "zsh" ]; then
+    sudo chsh -s "$(which zsh)" "{{ .chezmoi.username }}"
+fi
+
+echo "==> Creating common directories..."
+mkdir -p ~/Work
