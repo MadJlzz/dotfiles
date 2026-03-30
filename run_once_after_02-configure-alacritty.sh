@@ -13,3 +13,6 @@ curl -sSL "${ALACRITTY_REPO}/extra/linux/Alacritty.desktop" -o ~/.local/share/ap
 echo "==> Installing Alacritty icon..."
 mkdir -p ~/.local/share/icons
 curl -sSL "${ALACRITTY_REPO}/extra/logo/alacritty-term.svg" -o ~/.local/share/icons/Alacritty.svg
+
+echo "==> Updating desktop database..."
+update-desktop-database ~/.local/share/applications
